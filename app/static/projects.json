@@ -1,0 +1,152 @@
+[
+    {
+        "id": "smart-folder-allocator",
+        "title": "Smart Folder Allocator",
+        "description": "An automated file organization tool that uses Google's Gemini AI to intelligently classify and sort files from a Downloads folder into organized categories. The system monitors the ~/Downloads directory in real-time to detect new files. Components include: agent.py (core movement logic), tool.py (Gemini API classification interface), and watch.py (file system observer). Gemini 1.5 Pro is used for its superior ability to analyze filenames and content types to suggest optimal folder structures. Python is chosen for its extensive ecosystem of automation libraries like 'watchdog' and the Google Generative AI SDK.",
+        "keyFeatures": [
+            "Real-time folder monitoring",
+            "AI-powered classification (Gemini 1.5 Pro)",
+            "Automated file moving"
+        ],
+        "techStack": [
+            "Python",
+            "Google Gemini API",
+            "Watchdog"
+        ]
+        
+    },
+    {
+        "id": "ai-customer-support-assistant",
+        "title": "AI-Powered Customer Support Email Assistant",
+        "description": "An intelligent customer support agent designed for modern shared inboxes, built using a multi-agent LangGraph architecture. The system automatically understands emails, performs business actions (refunds, plan upgrades, ticketing), and generates professional replies. It includes a comprehensive automated evaluation framework that measures routing precision, policy adherence, and response quality. Components include specialized nodes for Intent Detection, Identity Verification, Refund processing, Issue resolution, and Plan management. LangGraph is used for its ability to handle complex, conditional multi-step workflows. Groq/GPT-OSS-120B provides high-speed inference, and MongoDB Atlas is used for scalable data storage. Python ensures modularity and ease of integration across these services.",
+        "keyFeatures": [
+            "Multi-intent detection",
+            "Identity verification",
+            "Automated refund calculation engine",
+            "Issue resolution ticketing",
+            "Built-in multi-metric QA evaluation framework"
+        ],
+        "techStack": [
+            "Python",
+            "LangGraph",
+            "Groq API",
+            "MongoDB Atlas",
+            "Pydantic"
+        ]
+    },
+    {
+        "id": "theater-seat-booking-agent",
+        "title": "Theater Seat Booking Agent",
+        "description": "An intelligent, AI-driven theater seat booking system that enables natural language interaction for movie discovery and seat booking. Facing challenges like rate limits and LLM context loss, the architecture was meticulously designed: manual flow-based routing in LangGraph replaces standard heavy tool-binding to reduce token overhead, and a Global State Memory dictionary ensures persistent context. Components include: app.py (Streamlit frontend), agent.py (orchestration logic), and db.py (MongoDB data layer). Streamlit was selected for web deployment to replace a limited Tkinter interface, and Groq's Llama-3.1-8b provides high-speed, cost-effective reasoning.",
+        "keyFeatures": [
+            "Manual flow-based routing (bypassing heavy tool-binding)",
+            "Global state memory to prevent context amnesia",
+            "Decoupled database initialization",
+            "Streamlit web frontend"
+        ],
+        "techStack": [
+            "Python",
+            "Streamlit",
+            "LangGraph",
+            "Groq (Llama-3.1-8b-instant)",
+            "MongoDB Atlas"
+        ],
+        "projectLink": "https://bookticket.streamlit.app/"
+    },
+    {
+        "id": "device-recommendation-llm",
+        "title": "Device Recommendation LLM Fine-Tuning Project",
+        "description": "A research-focused fine-tuning project that transforms Llama 3.2 3B Instruct into an intelligent 'device expert'. The project uses LoRA (Low-Rank Adaptation) and QLoRA for memory-efficient training on consumer-grade hardware like Google Colab. The pipeline involves loading the base model in 4-bit quantization via BitsAndBytes to reduce memory footprint, using TRL's SFTTrainer for supervised fine-tuning, and PEFT for parameter-efficient adaptation. Components include the training notebook, inference script, and a master reasoning dataset in .jsonl format. This approach allows for a highly specialized, lightweight model capable of reasoning based on user profiles, budget, and usage patterns.",
+        "keyFeatures": [
+            "4-bit quantization using BitsAndBytes",
+            "LoRA / PEFT memory-efficient training",
+            "Custom instruction and reasoning dataset",
+            "Direct Hugging Face adapter deployment"
+        ],
+        "techStack": [
+            "Python",
+            "PyTorch",
+            "Transformers",
+            "TRL",
+            "PEFT",
+            "BitsAndBytes"
+        ],
+        "projectLink":"https://hawkiee-device-expert-app.hf.space/?logs=container#ai-device-recommendation-expert"
+    },
+    {
+        "id": "cobratutor",
+        "title": "CobraTutor: Advanced Agentic Intelligent Tutoring System",
+        "description": "A sophisticated open-source Intelligent Tutoring System (ITS) integrating Multisignal Graph Knowledge Tracing (MGKT) with multi-agent AI. The frontend is a React 19/Vite application featuring interactive code editors, Knowledge Graph visualizations via React Flow, and agentic interfaces. The backend uses Django for API orchestration, with LangGraph managing sub-agents like CodingAgent and TheoryAgent. Data storage is split between MongoDB (sessions/state) and Neo4j (semantic knowledge graphs). Reinforcement Learning (RL) components adapt pedagogical approaches in real-time. Research-grade evaluation tools for MGKT model validation are included to ensure performance parity with academic benchmarks. These technologies were selected to support a complex, real-time, and scalable educational platform.",
+        "keyFeatures": [
+            "Multisignal Graph Knowledge Tracing",
+            "Multi-agent LangGraph coordination",
+            "Interactive coding and debugging agents",
+            "Dynamic React Flow knowledge graphs",
+            "Automated research simulation/evaluation framework"
+        ],
+        "techStack": [
+            "React 19",
+            "Vite",
+            "Django",
+            "LangGraph",
+            "MongoDB",
+            "Neo4j"
+        ],
+        "projectLink":"https://github.com/gokul-hawk/Cobra_Tutor"
+    },
+    {
+        "id": "ai-smart-travel-planner",
+        "title": "AI Smart Travel Planner",
+        "description": "An intelligent, dual-mode travel planning assistant that offers a structured 'Grid View' for itinerary logistics and a free-form 'Creative Notepad' for brainstorming. It utilizes AI-powered smart triggers\u2014such as '>>' for auto-completion and '[...]' for line refinement\u2014to interactively build plans. The system architecture integrates LangChain for LLM orchestration and DuckDuckGo search for real-time data retrieval (e.g., weather, prices). The application is built using Tkinter for cross-platform GUI support, providing a portable tool for travel management. Groq is utilized for fast AI response generation to ensure seamless interaction during the planning process.",
+        "keyFeatures": [
+            "Dual view modes (Grid vs. Text)",
+            "Smart triggers (>> auto-complete and [...] line refinement)",
+            "Pro plan restructuring via 'Modify' button",
+            "Integrated chat assistant with real-time web search"
+        ],
+        "techStack": [
+            "Python",
+            "Tkinter",
+            "Groq",
+            "LangChain",
+            "DuckDuckGo Search"
+        ],
+        "projectLink":"https://tripplannercsv.streamlit.app/"
+    },
+    {
+        "id": "wedding-planner-management-system",
+        "title": "Wedding Planner Management System",
+        "description": "A web-based wedding management application providing users with tools for budget tracking, guest list management, and overall wedding logistics. The system features secure user/couple registration and an admin dashboard for backend management. Built on a traditional LAMP (Linux, Apache, MySQL, PHP) architecture, it offers a robust and reliable foundation for data management. Frontend components are crafted with HTML5, CSS3, and JavaScript, while PHP handles the server-side logic and database interaction with MySQL. The system is designed for local hosting, utilizing simple database tables for user and admin credentials to ensure manageable and efficient data operations.",
+        "keyFeatures": [
+            "User registration and login",
+            "Admin dashboard",
+            "Wedding planning modules",
+            "Responsive custom-styled layout"
+        ],
+        "techStack": [
+            "PHP",
+            "MySQL",
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ]
+    },
+    {
+        "id": "zoro-voice-assistant",
+        "title": "Zoro Voice Assistant",
+        "description": "A private, local-first AI voice assistant designed to perform system-level tasks and answer questions offline. The architecture utilizes Ollama to run the Mistral:7b model locally, ensuring complete privacy. Components include: a wake-word detector (triggering on 'Zoro'), a continuous conversation loop (until 'finish'/'exit' is spoken), and an integration layer connecting the LLM to system tools for actions like time tracking, RAM/CPU monitoring, and file management. Python, combined with LangChain, bridges the voice recognition and system execution layers. Ollama was chosen specifically to keep the entire assistant operating without cloud dependency, maximizing performance and privacy on the user's local hardware.",
+        "keyFeatures": [
+            "Wake word activation ('Zoro')",
+            "Continuous conversation mode",
+            "Local offline LLM execution",
+            "Direct OS integrations (system info, file handling, time tracking)"
+        ],
+        "techStack": [
+            "Python",
+            "LangChain",
+            "Ollama (Mistral:7b)",
+            "PyAudio",
+            "System Automation Tools"
+        ]
+    }
+]

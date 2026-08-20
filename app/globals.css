@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+:root {
+  --background: #9eca9e;
+  --foreground: #465b7d;
+  --pista: #9eca9e;     /* Classic soft pista green */
+  --pista-dark: #76c776;
+
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-pista: var(--pista);
+  --color-pista-dark: var(--pista-dark);
+  --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
+  --font-mono: var(--font-geist-mono, monospace);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #9eca9e;
+    --foreground: #9eca9e;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Add to your app/globals.css */
+.perspective-container {
+  perspective: 1500px;
+  transform-style: preserve-3d;
+}
