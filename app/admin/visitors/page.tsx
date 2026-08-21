@@ -2,7 +2,7 @@ import { PrismaClient } from "@/src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 // Reusing the same database connection setup
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_PRISMA_URL_PRISMA_DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
 async function getVisitors() {
