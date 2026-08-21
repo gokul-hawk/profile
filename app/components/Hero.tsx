@@ -6,21 +6,7 @@ export default function Hero() {
     <section className="min-h-screen w-full flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto py-16 md:py-24">
       <div className="space-y-6 md:space-y-8 max-w-5xl">
         
-        {/* Status Pills Container */}
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-xs sm:text-sm font-medium text-slate-800 shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
-            Available for Software Engineering Roles
-          </div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-xs sm:text-sm font-medium text-slate-800 shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
-            AI Agent Developing
-          </div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-xs sm:text-sm font-medium text-slate-800 shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
-            AI/ML Engineering
-          </div>
-        </div>
+
 
         {/* Formal Introduction Header */}
         <div className="space-y-2">
@@ -41,7 +27,21 @@ export default function Hero() {
         </p>
 
         {/* Action Buttons */}
-        
+        {/* Status Pills Container */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-xs sm:text-sm font-medium text-slate-800 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+            Available for Software Engineering Roles
+          </div>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-xs sm:text-sm font-medium text-slate-800 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+            AI Agent Developing
+          </div>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-xs sm:text-sm font-medium text-slate-800 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+            AI/ML Engineering
+          </div>
+        </div>
 
       </div>
     </section>
