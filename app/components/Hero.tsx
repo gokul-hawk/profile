@@ -1,60 +1,46 @@
 import Link from "next/link";
-import { ArrowRight, Download, Mail } from "lucide-react";
+import { ArrowRight, FileText } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="min-h-screen w-screen flex flex-col justify-center px-6 md:px-16 lg:px-45 max-w-7xl mx-auto py-20">
-      <div className="space-y-6 max-w-5xl">
+    <section className="min-h-screen w-full flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-20 max-w-7xl mx-auto py-16 md:py-24">
+      <div className="space-y-6 md:space-y-8 max-w-5xl">
         
-        
+        {/* Status Pills Container */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-xs sm:text-sm font-medium text-slate-800 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+            Available for Software Engineering Roles
+          </div>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-xs sm:text-sm font-medium text-slate-800 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+            AI Agent Developing
+          </div>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-xs sm:text-sm font-medium text-slate-800 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+            AI/ML Engineering
+          </div>
+        </div>
 
         {/* Formal Introduction Header */}
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
-          Hello, I am <span className="text-emerald-700 bg-[#98fb98]/30 px-2 py-0.5 rounded-md">GOKULA UDHAYAN</span>.
-          <br />
-        </h1>
-        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-800 leading-tight">
-          I build end to end solutions using AI agents with interactive web systems.
-        </h2>
+        <div className="space-y-2">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
+            Hello, I am{" "}
+            <span className="text-emerald-700 bg-[#98fb98]/30 px-2 py-0.5 rounded-md inline-block mt-1">
+              GOKULA UDHAYAN
+            </span>
+          </h1>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-700 leading-snug pt-2">
+            I build end-to-end solutions using AI agents with interactive web systems.
+          </h2>
+        </div>
 
         {/* Professional Bio */}
-        <p className="text-lg md:text-xl text-slate-600 leading-relaxed">
-          I Learn Things out of curiousity and forgert in a week😅 , But still like to learn from scratch["HELLO WORLD!"]
+        <p className="text-base sm:text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl">
+          I learn things out of curiosity and forget in a week 😅, but still like to learn from scratch <span className="font-mono text-emerald-800 bg-[#98fb98]/20 px-1.5 py-0.5 rounded">[&quot;HELLO WORLD!&quot;]</span>
         </p>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-4 pt-4">
-          <Link
-            href="#projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-800 text-white font-medium hover:bg-emerald-900 transition-colors shadow-sm"
-          >
-            View Projects
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-          
-          <Link
-            href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-[#76c776] text-slate-800 font-medium hover:bg-[#98fb98]/20 transition-colors"
-          >
-            <Download className="w-4 h-4 text-emerald-700" />
-            Resume
-          </Link>
-        </div>
-
-        {/* Subtle Status Pill */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-sm font-medium text-slate-800">
-          <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-          Available for Software Engineering Roles
-        </div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-sm font-medium text-slate-800">
-          <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-          AI Agent Developing
-        </div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#98fb98]/20 border border-[#98fb98] text-sm font-medium text-slate-800">
-          <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-          AI/ML Engineering
-        </div>
-
         
 
       </div>
