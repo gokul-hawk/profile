@@ -8,11 +8,15 @@ datasource db {
 }
 
 model Visitor {
-  id        String   @id @default(cuid())
-  ip        String
-  city      String
-  country   String
-  userAgent String
-  path      String
-  timestamp DateTime @default(now())
+  id         String   @id @default(cuid())
+  ip         String
+  city       String
+  region     String?  // Added for state/province level precision
+  country    String
+  postalCode String?  // Added for ZIP/Postal code
+  latitude   Float?   // Added for map coordinates
+  longitude  Float?   // Added for map coordinates
+  userAgent  String
+  path       String
+  timestamp  DateTime @default(now())
 }
