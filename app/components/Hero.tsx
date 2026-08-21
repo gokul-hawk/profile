@@ -184,7 +184,7 @@ export default function Hero() {
             2026
           </span>
         </div>
-      </div>
+      
     </section>
   );
 }
