@@ -1,55 +1,43 @@
-import Link from "next/link";
-import {
-  ArrowDown,
-  ArrowUpRight,
-  
-  Mail,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export default function Hero() {
+  const focus = [
+    "Software Engineering",
+    "AI Agents",
+    "AI / ML",
+    "Full-Stack Development",
+  ];
+
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#f7f8f5] text-slate-900">
-      {/* Background Grid */}
-      <div
-        className="absolute inset-0 opacity-[0.035]"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, #0f172a 1px, transparent 1px),
-            linear-gradient(to bottom, #0f172a 1px, transparent 1px)
-          `,
-          backgroundSize: "48px 48px",
-        }}
-      />
+    <section className="relative overflow-hidden bg-[#f7f8f5]">
+      {/* Background */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute right-[-180px] top-[-180px] h-[350px] w-[350px] rounded-full bg-emerald-300/10 blur-3xl sm:h-[450px] sm:w-[450px]" />
 
-      {/* Decorative background elements */}
-      <div className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full bg-emerald-300/10 blur-3xl" />
+        <div className="absolute bottom-[-180px] left-[-180px] h-[350px] w-[350px] rounded-full bg-lime-300/10 blur-3xl sm:h-[450px] sm:w-[450px]" />
 
-      <div className="pointer-events-none absolute -bottom-40 -left-40 h-[450px] w-[450px] rounded-full bg-lime-300/10 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:48px_48px] opacity-[0.025]" />
+      </div>
 
-      {/* Vertical lines */}
-      <div className="absolute left-[8%] top-0 hidden h-full w-px bg-slate-900/[0.05] lg:block" />
+      {/* Content */}
+      <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-24 sm:px-8 sm:pb-20 sm:pt-28 md:px-12 md:pb-24 md:pt-32 lg:px-20 lg:pt-36">
 
-      <div className="absolute right-[8%] top-0 hidden h-full w-px bg-slate-900/[0.05] lg:block" />
+        {/* Intro */}
+        <div className="mb-8 flex items-center gap-3 sm:mb-10">
+          <span className="h-px w-8 bg-slate-400 sm:w-12" />
 
-      {/* Main */}
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-5 py-20 sm:px-8 md:px-12 lg:px-20">
-
-        {/* Small introduction */}
-        <div className="mb-10 flex items-center gap-4">
-          <span className="h-px w-10 bg-slate-400" />
-
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-slate-500">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500 sm:text-xs">
             Software Engineer · Builder · Learner
           </span>
         </div>
 
         {/* Name */}
         <div>
-          <p className="mb-4 font-mono text-sm text-slate-400">
+          <p className="mb-3 font-mono text-xs text-slate-400 sm:text-sm">
             {"<hello_world />"}
           </p>
 
-          <h1 className="text-[clamp(3.5rem,10vw,8.5rem)] font-black leading-[0.85] tracking-[-0.06em]">
+          <h1 className="text-[clamp(3.4rem,10vw,8rem)] font-black leading-[0.85] tracking-[-0.06em]">
             <span className="block transition-transform duration-500 hover:translate-x-2">
               GOKULA
             </span>
@@ -57,134 +45,65 @@ export default function Hero() {
             <span className="relative inline-block text-slate-800 transition-transform duration-500 hover:translate-x-2">
               UDHAYAN
 
-              {/* Underline */}
-              <span className="absolute -bottom-3 left-0 h-1.5 w-3/4 rounded-full bg-emerald-400" />
+              <span className="absolute -bottom-2 left-0 h-1 w-2/3 rounded-full bg-emerald-400 sm:-bottom-3 sm:h-1.5" />
             </span>
           </h1>
         </div>
 
-        {/* Content */}
-        <div className="mt-14 grid max-w-6xl gap-12 md:grid-cols-[1fr_300px] md:items-end">
+        {/* Introduction */}
+        <div className="mt-12 max-w-4xl sm:mt-14 md:mt-16">
+          <h2 className="text-xl font-medium leading-snug tracking-tight text-slate-700 sm:text-2xl md:text-3xl lg:text-4xl">
+            I build{" "}
+            <span className="font-semibold text-slate-950">
+              practical software
+            </span>{" "}
+            that connects intelligent systems with real-world products.
+          </h2>
 
-          {/* Description */}
-          <div>
-            <h2 className="max-w-3xl text-2xl font-medium leading-tight tracking-tight text-slate-700 sm:text-3xl md:text-4xl">
-              I build{" "}
-              <span className="font-semibold text-slate-950">
-                practical software
-              </span>{" "}
-              that connects intelligent systems with real-world products.
-            </h2>
-
-            <p className="mt-6 max-w-2xl text-base leading-7 text-slate-500 sm:text-lg">
-              Curious by nature. Engineer by choice. I like understanding
-              things from the ground up, building them from scratch, and
-              occasionally breaking them just to understand why they work.
-            </p>
-          </div>
-
-          {/* Developer card */}
-          <div className="group relative">
-            <div className="rounded-2xl border border-slate-200 bg-white/70 p-5 shadow-sm backdrop-blur-sm transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-xl">
-              
-              {/* Card header */}
-              <div className="mb-5 flex items-center justify-between">
-                <span className="font-mono text-[10px] tracking-[0.2em] text-slate-400">
-                  CURRENT_STATE
-                </span>
-
-                <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-
-                  <span className="font-mono text-[10px] text-emerald-600">
-                    ONLINE
-                  </span>
-                </div>
-              </div>
-
-              {/* Card content */}
-              <div className="space-y-3 font-mono text-xs">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">building</span>
-                  <span className="text-slate-700">software</span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span className="text-slate-400">exploring</span>
-                  <span className="text-slate-700">AI systems</span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span className="text-slate-400">learning</span>
-                  <span className="text-slate-700">everything</span>
-                </div>
-
-                <div className="mt-5 border-t border-slate-100 pt-4 text-emerald-700">
-                  while(alive) {"{"} learn(); {"}"}
-                </div>
-              </div>
-            </div>
-          </div>
+          <p className="mt-5 max-w-2xl text-sm leading-6 text-slate-500 sm:mt-6 sm:text-base sm:leading-7 md:text-lg">
+            Curious by nature. Engineer by choice. I like understanding
+            things from the ground up, building them from scratch, and
+            occasionally breaking them just to understand why they work.
+          </p>
         </div>
 
-        {/* Skills / focus */}
-        <div className="mt-12 flex flex-wrap gap-2">
-          {[
-            "Software Engineering",
-            "AI Agents",
-            "AI / ML",
-            "Full-Stack Development",
-          ].map((item) => (
-            <div
+        {/* Focus */}
+        <div className="mt-8 flex max-w-4xl flex-wrap gap-2 sm:mt-10">
+          {focus.map((item) => (
+            <span
               key={item}
-              className="group flex cursor-default items-center gap-2 rounded-full border border-slate-200 bg-white/60 px-4 py-2 text-xs font-medium text-slate-600 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-800"
+              className="group inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-3 py-1.5 text-[11px] font-medium text-slate-600 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-800 sm:px-4 sm:py-2 sm:text-xs"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-slate-300 transition-colors duration-300 group-hover:bg-emerald-500" />
 
               {item}
-            </div>
+            </span>
           ))}
         </div>
 
-        {/* Buttons */}
-        <div className="mt-10 flex flex-wrap items-center gap-4">
-          <Link
-            href="#projects"
-            className="group inline-flex items-center gap-3 rounded-full bg-slate-950 px-6 py-3.5 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-1 hover:bg-emerald-700 hover:shadow-xl hover:shadow-emerald-900/10"
-          >
-            Explore my work
+        {/* Availability */}
+        <div className="mt-8 flex items-center gap-3 sm:mt-10">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+          </span>
 
-            <ArrowUpRight
-              size={17}
-              className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-            />
-          </Link>
-
-          <Link
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/50 px-6 py-3.5 text-sm font-medium text-slate-700 transition-all duration-300 hover:-translate-y-1 hover:bg-white"
-          >
-            Let's connect
-          </Link>
+          <span className="text-xs font-medium text-slate-500 sm:text-sm">
+            Available for Software Engineering Roles
+          </span>
         </div>
 
-        
+        {/* Bottom */}
+        <div className="mt-14 flex items-center justify-between border-t border-slate-200 pt-5 sm:mt-16">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400 sm:text-xs">
+            Building · Learning · Exploring
+          </span>
 
-          {/* Scroll */}
-          <div className="hidden items-center gap-2 font-mono text-[10px] tracking-[0.2em] text-slate-400 sm:flex">
-            SCROLL TO EXPLORE
-
-            <ArrowDown
-              size={13}
-              className="animate-bounce"
-            />
-          </div>
-
-          <span className="font-mono text-[10px] text-slate-400">
+          <span className="font-mono text-[10px] text-slate-400 sm:text-xs">
             2026
           </span>
         </div>
-      
+      </div>
     </section>
   );
 }
