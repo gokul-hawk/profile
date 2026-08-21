@@ -2,75 +2,193 @@
 
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { RotateCcw, X } from "lucide-react";
 import HighlightWord from "./HighlightWord";
 
 export default function AboutScratchCard() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   const [isFullyRevealed, setIsFullyRevealed] = useState(false);
   const [isDrawing, setIsDrawing] = useState(false);
 
-  // Initialize Canvas Cover
+  /*
+   * Initialize scratch canvas
+   */
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
+
     if (!canvas || !container || isFullyRevealed) return;
 
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const ctx = canvas.getContext("2d", {
+      willReadFrequently: true,
+    });
+
     if (!ctx) return;
 
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-    const dpr = window.devicePixelRatio || 1;
+    const resizeCanvas = () => {
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      const dpr = window.devicePixelRatio || 1;
 
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.scale(dpr, dpr);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
 
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
 
-    // 1. Solid Pista Green Cover Fill (Ensures layer is clearly visible)
-    ctx.fillStyle = "#76c776"; 
-    ctx.fillRect(0, 0, width, height);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    // 2. Texture Overlay / Instructions
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "bold 20px sans-serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("✨ Scratch or drag here to reveal my story! ✨", width / 2, 70);
+      /*
+       * Scratch surface
+       */
+      const gradient = ctx.createLinearGradient(
+        0,
+        0,
+        width,
+        height
+      );
+
+      gradient.addColorStop(0, "#65b96b");
+      gradient.addColorStop(0.5, "#76c776");
+      gradient.addColorStop(1, "#58aa62");
+
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+
+      /*
+       * Decorative circles
+       */
+      ctx.globalAlpha = 0.08;
+
+      for (let i = 0; i < 18; i++) {
+        const x = Math.random() * width;
+        const y = Math.random() * height;
+        const radius = 20 + Math.random() * 50;
+
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 1;
+
+      /*
+       * Center message
+       */
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      const fontSize = Math.min(width / 22, 22);
+
+      ctx.font = `600 ${fontSize}px sans-serif`;
+
+      ctx.fillText(
+        "Scratch to discover my story",
+        width / 2,
+        height / 2 - 15
+      );
+
+      ctx.font = `400 ${Math.min(width / 30, 14)}px sans-serif`;
+
+      ctx.globalAlpha = 0.8;
+
+      ctx.fillText(
+        "Drag your mouse or finger",
+        width / 2,
+        height / 2 + 20
+      );
+
+      ctx.globalAlpha = 1;
+    };
+
+    resizeCanvas();
+
+    window.addEventListener("resize", resizeCanvas);
+
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+    };
   }, [isFullyRevealed]);
 
-  // Handle Scratching Action
-  const scratch = useCallback((clientX: number, clientY: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas || isFullyRevealed) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  /*
+   * Scratch
+   */
+  const scratch = useCallback(
+    (clientX: number, clientY: number) => {
+      const canvas = canvasRef.current;
 
-    const rect = canvas.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
+      if (!canvas || isFullyRevealed) return;
 
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.beginPath();
-    ctx.arc(x, y, 45, 0, Math.PI * 2, false);
-    ctx.fill();
-  }, [isFullyRevealed]);
+      const ctx = canvas.getContext("2d");
 
-  const handleStart = (e: React.MouseEvent | React.TouchEvent) => {
+      if (!ctx) return;
+
+      const rect = canvas.getBoundingClientRect();
+
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      ctx.globalCompositeOperation = "destination-out";
+
+      ctx.beginPath();
+
+      ctx.arc(
+        x,
+        y,
+        window.innerWidth < 640 ? 32 : 42,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fill();
+    },
+    [isFullyRevealed]
+  );
+
+  /*
+   * Start scratching
+   */
+  const handleStart = (
+    e: React.MouseEvent | React.TouchEvent
+  ) => {
     setIsDrawing(true);
-    const clientX = "touches" in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
-    const clientY = "touches" in e ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
+
+    const clientX =
+      "touches" in e
+        ? e.touches[0].clientX
+        : e.clientX;
+
+    const clientY =
+      "touches" in e
+        ? e.touches[0].clientY
+        : e.clientY;
+
     scratch(clientX, clientY);
   };
 
-  const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
+  /*
+   * Continue scratching
+   */
+  const handleMove = (
+    e: React.MouseEvent | React.TouchEvent
+  ) => {
     if (!isDrawing) return;
-    const clientX = "touches" in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
-    const clientY = "touches" in e ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
+
+    const clientX =
+      "touches" in e
+        ? e.touches[0].clientX
+        : e.clientX;
+
+    const clientY =
+      "touches" in e
+        ? e.touches[0].clientY
+        : e.clientY;
+
     scratch(clientX, clientY);
   };
 
@@ -79,81 +197,217 @@ export default function AboutScratchCard() {
   };
 
   return (
-    <div 
-      ref={containerRef} 
-      className="relative w-full max-w-4xl h-[70vh] rounded-3xl shadow-2xl overflow-hidden border-4 border-white mx-auto my-auto bg-emerald-700"
+    <div
+      ref={containerRef}
+      className="
+        relative
+        mx-auto
+        h-full
+        w-full
+        max-w-5xl
+        overflow-hidden
+        rounded-2xl
+        border
+        border-white/80
+        bg-slate-950
+        shadow-xl
+        sm:rounded-3xl
+      "
     >
-      
-      {/* 1. THE HIDDEN CONTENT SECTION */}
+      {/* =========================================
+          ABOUT CONTENT
+      ========================================= */}
       <section
         id="about"
-        className="absolute inset-0 bg-cover bg-center flex flex-col items-center justify-start overflow-y-auto p-8 md:p-12 z-10 text-slate-100"
-        style={{ backgroundImage: "url('/H11.png')" }}
+        className="
+          absolute
+          inset-0
+          flex
+          items-center
+          justify-center
+          overflow-hidden
+          bg-slate-950
+          bg-cover
+          bg-center
+          px-5
+          py-6
+          text-slate-100
+          sm:px-8
+          md:px-12
+        "
+        style={{
+          backgroundImage: "url('/H11.png')",
+        }}
       >
-        <div className="w-full text-center max-w-3xl">
-          <p className="text-md text-gray-300">have fun by dragging or scratching the words</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-purple-400 mb-2">
-            About Me
-          </h2>
-          <div className="border-b-4 border-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 w-32 mx-auto mb-6"></div>
-          
-          <p className="text-md text-gray-300 leading-8 mb-6">
-            Hey there! I’m a <HighlightWord color="text-yellow-400">passionate developer</HighlightWord>, <HighlightWord color="text-purple-300">tech explorer</HighlightWord>, and part-time <HighlightWord color="text-red-400">bug creator</HighlightWord> (don’t worry, I fix them too 😌). I have a strong foundation in <HighlightWord color="text-blue-400">software engineering</HighlightWord>, <HighlightWord color="text-indigo-300">AI/ML basics</HighlightWord>, and <HighlightWord color="text-green-400">full-stack development</HighlightWord>, and I love building things that make life easier—or at least look cool while failing successfully. 😄
-          </p>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-slate-950/70" />
 
-          <p className="text-md text-gray-300 leading-8 mb-6">
-            I enjoy working with tools like <HighlightWord color="text-yellow-300">Python</HighlightWord>, <HighlightWord color="text-yellow-400">JavaScript</HighlightWord>, <HighlightWord color="text-blue-300">React</HighlightWord>, and anything that lets me turn <HighlightWord color="text-orange-400">caffeine into code</HighlightWord>. Whether it&apos;s crafting <HighlightWord color="text-purple-400">intelligent systems</HighlightWord>, automating boring tasks, or experimenting with the latest <HighlightWord color="text-pink-400">AI models</HighlightWord>, I love bringing ideas to life. 🚀🤖
-          </p>
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-4xl">
 
-          <p className="text-md text-gray-300 leading-8 mb-6">
-            ✨ I <HighlightWord color="text-red-300">thrive on challenges</HighlightWord>—give me a problem, and I’ll happily overthink it until the solution magically appears at 3 AM. I enjoy blending <HighlightWord color="text-teal-300">creativity, logic</HighlightWord>, and just the right amount of chaos to build meaningful, efficient, and user-friendly projects.
-          </p>
+          {/* Header */}
+          <div className="mb-5 text-center sm:mb-6">
+            <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.2em] text-emerald-300 sm:text-[10px]">
+              A little about me
+            </p>
 
-          <p className="text-md text-gray-300 leading-8 mb-6">
-            I’m constantly exploring new technologies in <HighlightWord color="text-indigo-400">AI, automation</HighlightWord>, and intelligent systems—because who doesn’t want their code to be smarter than them one day? 🤷‍♀️💻
-          </p>
+            <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+              Behind the Code
+            </h2>
 
-          <div className="text-md text-gray-300 leading-8 mb-6 text-left inline-block bg-black/40 p-6 rounded-xl backdrop-blur-sm">
-            <p className="mb-2 text-white font-medium">When I’m not coding, you’ll probably find me:</p>
-            <p className="ml-4">✈️ Dreaming about <HighlightWord color="text-green-300">traveling the world</HighlightWord>,</p>
-            <p className="ml-4">📸 <HighlightWord color="text-blue-300">Exploring new places</HighlightWord> like a curious traveler, not a tourist,</p>
-            <p className="ml-4">💸 And doing all of that with a wallet that strongly disagrees with my ambitions. 🥹</p>
+            <div className="mx-auto mt-2 h-1 w-12 rounded-full bg-emerald-400 sm:w-16" />
           </div>
 
-          <p className="text-md text-gray-300 leading-8 mb-6">
-            My dream? A <HighlightWord color="text-yellow-400">career</HighlightWord> that lets me build cool things, learn endlessly, and collect memories across the globe—preferably without my bank account crying every month. 🌍😂
-          </p>
+          {/* Main introduction */}
+          <div className="grid gap-4 md:grid-cols-2 md:gap-6">
 
-          <div className="text-md text-gray-300 leading-8 pb-8">
-            <p>✨ <HighlightWord color="text-pink-300">Learning every day</HighlightWord></p>
-            <p>✨ <HighlightWord color="text-orange-300">Building with passion</HighlightWord></p>
-            <p>✨ And <HighlightWord color="text-red-400">debugging</HighlightWord> with tears and determination</p>
+            <div className="rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-sm sm:p-5">
+              <p className="text-xs leading-6 text-slate-300 sm:text-sm sm:leading-7">
+                Hey there! I&apos;m a{" "}
+                <HighlightWord color="text-yellow-300">
+                  passionate developer
+                </HighlightWord>
+                ,{" "}
+                <HighlightWord color="text-purple-300">
+                  tech explorer
+                </HighlightWord>
+                , and part-time{" "}
+                <HighlightWord color="text-red-300">
+                  bug creator
+                </HighlightWord>
+                . I enjoy building software that solves real problems while
+                learning how things work underneath the surface.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-sm sm:p-5">
+              <p className="text-xs leading-6 text-slate-300 sm:text-sm sm:leading-7">
+                My playground includes{" "}
+                <HighlightWord color="text-yellow-300">
+                  Python
+                </HighlightWord>
+                ,{" "}
+                <HighlightWord color="text-blue-300">
+                  React
+                </HighlightWord>
+                ,{" "}
+                <HighlightWord color="text-green-300">
+                  full-stack development
+                </HighlightWord>
+                , AI systems, automation, and anything that lets me turn an
+                idea into something people can actually use.
+              </p>
+            </div>
+          </div>
+
+          {/* Philosophy */}
+          <div className="mt-4 rounded-xl border border-emerald-400/20 bg-emerald-400/[0.06] p-4 text-center sm:mt-5 sm:p-5">
+            <p className="text-sm font-medium leading-6 text-slate-200 sm:text-base">
+              &quot;Give me a problem and I&apos;ll probably overthink it
+              until I understand it.&quot;
+            </p>
+
+            <p className="mt-2 font-mono text-[9px] text-emerald-300 sm:text-[10px]">
+              learn → build → break → understand → repeat
+            </p>
+          </div>
+
+          {/* Personal side */}
+          <div className="mt-4 grid grid-cols-3 gap-2 sm:mt-5 sm:gap-3">
+
+            <div className="rounded-lg border border-white/10 bg-black/20 p-3 text-center">
+              <span className="text-lg sm:text-xl">✈️</span>
+
+              <p className="mt-1 text-[9px] text-slate-400 sm:text-[10px]">
+                Travel
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-white/10 bg-black/20 p-3 text-center">
+              <span className="text-lg sm:text-xl">💻</span>
+
+              <p className="mt-1 text-[9px] text-slate-400 sm:text-[10px]">
+                Build
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-white/10 bg-black/20 p-3 text-center">
+              <span className="text-lg sm:text-xl">🧠</span>
+
+              <p className="mt-1 text-[9px] text-slate-400 sm:text-[10px]">
+                Learn
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. THE SCRATCH-CARD OVERLAY & SKIP BUTTON */}
+      {/* =========================================
+          SCRATCH OVERLAY
+      ========================================= */}
       <AnimatePresence>
         {!isFullyRevealed && (
           <motion.div
             initial={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.5 }}
-            className="absolute inset-0 z-30 overflow-hidden"
+            exit={{
+              opacity: 0,
+              scale: 1.03,
+            }}
+            transition={{
+              duration: 0.45,
+            }}
+            className="absolute inset-0 z-30"
           >
-            {/* Skip Button */}
+            {/* Skip */}
             <motion.button
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              initial={{
+                opacity: 0,
+                y: -8,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.4,
+              }}
               onClick={() => setIsFullyRevealed(true)}
-              className="absolute top-4 right-4 z-40 flex items-center gap-2 px-4 py-2 bg-white text-emerald-900 rounded-full font-semibold shadow-lg hover:bg-emerald-50 transition-all hover:scale-105 cursor-pointer"
+              className="
+                absolute
+                right-3
+                top-3
+                z-40
+                flex
+                items-center
+                gap-1.5
+                rounded-full
+                border
+                border-white/40
+                bg-white/90
+                px-3
+                py-1.5
+                text-[10px]
+                font-semibold
+                text-emerald-900
+                shadow-lg
+                backdrop-blur-sm
+                transition-all
+                duration-300
+                hover:scale-105
+                hover:bg-white
+                sm:right-4
+                sm:top-4
+                sm:px-4
+                sm:py-2
+                sm:text-xs
+              "
             >
-              <X size={16} />
-              Skip Scratch
+              <X size={13} />
+
+              Skip
             </motion.button>
 
-            {/* Interactive Scratch Canvas */}
+            {/* Canvas */}
             <canvas
               ref={canvasRef}
               onMouseDown={handleStart}
@@ -163,8 +417,25 @@ export default function AboutScratchCard() {
               onTouchStart={handleStart}
               onTouchMove={handleMove}
               onTouchEnd={handleEnd}
-              className="absolute inset-0 w-full h-full cursor-crosshair touch-none z-20"
+              className="
+                absolute
+                inset-0
+                z-20
+                h-full
+                w-full
+                cursor-crosshair
+                touch-none
+              "
             />
+
+            {/* Small corner hint */}
+            <div className="pointer-events-none absolute bottom-4 left-1/2 z-40 -translate-x-1/2">
+              <div className="flex items-center gap-2 rounded-full bg-black/20 px-3 py-1.5 font-mono text-[9px] text-white/80 backdrop-blur-sm">
+                <RotateCcw size={11} />
+
+                SCRATCH
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
